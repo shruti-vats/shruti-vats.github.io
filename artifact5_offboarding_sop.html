@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Offboarding SOP — Shruti Vats</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F9F7F4;
+    --white: #FFFFFF;
+    --ink: #1C1A18;
+    --mid: #3D3A36;
+    --muted: #7A756E;
+    --rule: #E0DAD2;
+    --accent: #3D6B4F;
+    --accent-s: #EDF4EF;
+    --warm: #8B4513;
+    --warm-s: #FBF2EA;
+    --blue: #1B5FA8;
+    --blue-s: #EBF2FC;
+    --red: #9B2020;
+    --red-s: #FAEAEA;
+  }
+  body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--ink); padding: 40px 24px; }
+  .page { max-width: 800px; margin: 0 auto; }
+
+  /* Cover */
+  .cover {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .cover-top {
+    background: var(--ink);
+    padding: 36px 40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .cover-top h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7A8A9A;
+    margin-bottom: 8px;
+  }
+  .cover-sub { font-size: 13px; color: #9AA8B8; line-height: 1.6; max-width: 380px; }
+  .cover-meta { text-align: right; }
+  .meta-item { font-size: 11px; color: #6A7A8A; margin-bottom: 4px; }
+  .meta-item strong { color: #CDD8E4; display: block; font-size: 13px; }
+
+  .cover-bottom {
+    background: var(--accent);
+    padding: 14px 40px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cover-stat { color: white; }
+  .cover-stat .num { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; line-height: 1; }
+  .cover-stat .lbl { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+  /* Purpose box */
+  .purpose-box {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .purpose-icon {
+    width: 36px; height: 36px;
+    background: var(--accent-s);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .purpose-text h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .purpose-text p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+
+  /* Phase blocks */
+  .phase-block {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .phase-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ph-green { background: var(--accent-s); }
+  .ph-warm  { background: var(--warm-s); }
+  .ph-blue  { background: var(--blue-s); }
+  .ph-red   { background: var(--red-s); }
+
+  .phase-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: white; flex-shrink: 0;
+  }
+  .pn-green  { background: var(--accent); }
+  .pn-warm   { background: var(--warm); }
+  .pn-blue   { background: var(--blue); }
+  .pn-red    { background: var(--red); }
+
+  .phase-head-text { flex: 1; }
+  .phase-head-text h3 { font-size: 14px; font-weight: 700; }
+  .ph-green h3 { color: var(--accent); }
+  .ph-warm  h3 { color: var(--warm); }
+  .ph-blue  h3 { color: var(--blue); }
+  .ph-red   h3 { color: var(--red); }
+  .phase-head-text p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .phase-timeline {
+    font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; color: white;
+  }
+  .pt-green { background: var(--accent); }
+  .pt-warm  { background: var(--warm); }
+  .pt-blue  { background: var(--blue); }
+  .pt-red   { background: var(--red); }
+
+  /* Steps table */
+  .steps-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .steps-table th {
+    padding: 8px 16px;
+    text-align: left;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted);
+    background: #FAFAF7;
+    border-bottom: 1px solid var(--rule);
+  }
+  .steps-table td { padding: 10px 16px; border-bottom: 1px solid #F0EDE8; vertical-align: top; line-height: 1.5; }
+  .steps-table tr:last-child td { border-bottom: none; }
+  .steps-table tr:hover td { background: #FAFAF7; }
+
+  .owner-tag {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: 700;
+  }
+  .own-hr  { background: var(--blue-s); color: var(--blue); }
+  .own-it  { background: #F0EAFA; color: #5B3FA6; }
+  .own-mgr { background: var(--accent-s); color: var(--accent); }
+  .own-fin { background: var(--warm-s); color: var(--warm); }
+
+  .check-col { text-align: center; }
+  .check-box {
+    width: 18px; height: 18px; border: 2px solid var(--rule); border-radius: 4px;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .check-box:hover { border-color: var(--accent); }
+  .check-box.done { background: var(--accent); border-color: var(--accent); }
+  .check-box.done::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+
+  /* Exit interview */
+  .exit-section {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+  }
+  .exit-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+  .exit-q { margin-bottom: 14px; }
+  .exit-q label { font-size: 12px; font-weight: 600; color: var(--mid); display: block; margin-bottom: 5px; }
+  .exit-q textarea {
+    width: 100%; border: 1px solid var(--rule); border-radius: 6px; padding: 8px 12px;
+    font-size: 12px; font-family: 'Lato', sans-serif; color: var(--ink); resize: vertical;
+    min-height: 52px; background: var(--bg); outline: none;
+  }
+  .exit-q textarea:focus { border-color: var(--accent); }
+
+  /* Footer */
+  .doc-footer {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted);
+    padding-top: 16px; border-top: 1px solid var(--rule);
+    flex-wrap: wrap; gap: 8px;
+    margin-top: 8px;
+  }
+
+  @media print {
+    body { background: white; }
+    .cover-top, .cover-bottom { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 580px) {
+    body { padding: 16px 12px; }
+    .cover-top { padding: 24px; }
+    .cover-bottom { padding: 14px 24px; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-top">
+      <div>
+        <div class="cover-eyebrow">Standard Operating Procedure · Portfolio Artifact</div>
+        <h1>Employee Offboarding<br>SOP & Checklist</h1>
+        <p class="cover-sub">Structured process to ensure clean, compliant, and respectful employee exits — covering IT access, documentation, payroll, and knowledge transfer.</p>
+      </div>
+      <div class="cover-meta">
+        <div class="meta-item"><strong>SOP-HR-002</strong>Document ID</div>
+        <div class="meta-item"><strong>People Operations</strong>Department</div>
+        <div class="meta-item"><strong>All Employees</strong>Applies to</div>
+        <div class="meta-item"><strong>Shruti Vats</strong>Designed by</div>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-stat"><div class="num">4</div><div class="lbl">Process phases</div></div>
+      <div class="cover-stat"><div class="num">28</div><div class="lbl">Checklist items</div></div>
+      <div class="cover-stat"><div class="num">30</div><div class="lbl">Day window</div></div>
+      <div class="cover-stat"><div class="num">4</div><div class="lbl">Stakeholders</div></div>
+    </div>
+  </div>
+
+  <!-- Purpose -->
+  <div class="purpose-box">
+    <div class="purpose-icon">📋</div>
+    <div class="purpose-text">
+      <h3>Purpose & Scope</h3>
+      <p>This SOP governs the offboarding process for all employee exits — voluntary resignations, contract endings, and involuntary separations. The goal is to ensure data security, payroll accuracy, legal compliance, and a professional exit experience for departing employees — protecting both the company and the individual.</p>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase-block">
+    <div class="phase-head ph-warm">
+      <div class="phase-num pn-warm">1</div>
+      <div class="phase-head-text">
+        <h3>Resignation / Exit Trigger</h3>
+        <p>Initiated on day of resignation or separation notice</p>
+      </div>
+      <div class="phase-timeline pt-warm">Day 0</div>
+    </div>
+    <table class="steps-table">
+      <thead><tr><th class="check-col">✓</th><th>Action Item</th><th>Owner</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Resignation letter / notice received and acknowledged in writing</td><td><span class="owner-tag own-hr">HR</span></td><td>Confirm notice period start date</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Manager notified formally by HR</td><td><span class="owner-tag own-hr">HR</span></td><td></td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Last working day confirmed and documented</td><td><span class="owner-tag own-hr">HR</span></td><td>Check notice period policy</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Exit interview scheduled</td><td><span class="owner-tag own-hr">HR</span></td><td>Schedule within first week of notice</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>HRIS status updated to "Offboarding in Progress"</td><td><span class="owner-tag own-hr">HR</span></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-block">
+    <div class="phase-head ph-blue">
+      <div class="phase-num pn-blue">2</div>
+      <div class="phase-head-text">
+        <h3>Knowledge Transfer & Handover</h3>
+        <p>Ensuring continuity before the employee's last day</p>
+      </div>
+      <div class="phase-timeline pt-blue">During Notice Period</div>
+    </div>
+    <table class="steps-table">
+      <thead><tr><th class="check-col">✓</th><th>Action Item</th><th>Owner</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Handover document prepared by departing employee</td><td><span class="owner-tag own-mgr">Manager</span></td><td>Include: ongoing tasks, contacts, process notes</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Handover reviewed and signed off by manager</td><td><span class="owner-tag own-mgr">Manager</span></td><td></td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Replacement / coverage plan confirmed</td><td><span class="owner-tag own-mgr">Manager</span></td><td>Escalate to HR if role needs urgent backfill</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Team notified of exit (if appropriate)</td><td><span class="owner-tag own-mgr">Manager</span></td><td>Timing of announcement at manager discretion</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Pending projects / tasks reassigned</td><td><span class="owner-tag own-mgr">Manager</span></td><td></td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Access to sensitive files/data restricted as handover progresses</td><td><span class="owner-tag own-it">IT</span></td><td>Do not revoke all access before handover is complete</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-block">
+    <div class="phase-head ph-red">
+      <div class="phase-num pn-red">3</div>
+      <div class="phase-head-text">
+        <h3>Last Day — Access Revocation & Admin Close</h3>
+        <p>All system access removed and final formalities completed</p>
+      </div>
+      <div class="phase-timeline pt-red">Last Working Day</div>
+    </div>
+    <table class="steps-table">
+      <thead><tr><th class="check-col">✓</th><th>Action Item</th><th>Owner</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>All company hardware returned (laptop, phone, access card, keys)</td><td><span class="owner-tag own-it">IT</span></td><td>Issue hardware return receipt</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>All system access revoked: email, HRIS, internal tools, shared drives</td><td><span class="owner-tag own-it">IT</span></td><td>Complete within 1 hour of last working day ending</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Email auto-reply set up and redirected to manager / replacement</td><td><span class="owner-tag own-it">IT</span></td><td>Active for 30 days post-exit</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Full and final settlement calculation prepared</td><td><span class="owner-tag own-fin">Finance</span></td><td>Include pending leaves, reimbursements, deductions</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>No-dues certificate signed by all departments</td><td><span class="owner-tag own-hr">HR</span></td><td>HR, IT, Finance, Manager</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Relieving letter and experience letter issued</td><td><span class="owner-tag own-hr">HR</span></td><td>Issue on last day or within 2 working days</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>PF and gratuity transfer / withdrawal initiated (if applicable)</td><td><span class="owner-tag own-fin">Finance</span></td><td>As per statutory requirement</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-block">
+    <div class="phase-head ph-green">
+      <div class="phase-num pn-green">4</div>
+      <div class="phase-head-text">
+        <h3>Post-Exit — Records & Closure</h3>
+        <p>HRIS update, data archiving, and reporting</p>
+      </div>
+      <div class="phase-timeline pt-green">Within 7 Days Post-Exit</div>
+    </div>
+    <table class="steps-table">
+      <thead><tr><th class="check-col">✓</th><th>Action Item</th><th>Owner</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>HRIS record updated: status changed to Inactive, exit date recorded</td><td><span class="owner-tag own-hr">HR</span></td><td></td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Exit reason coded and recorded in HRIS for attrition reporting</td><td><span class="owner-tag own-hr">HR</span></td><td>Use standardised exit reason codes</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Full and final payment processed</td><td><span class="owner-tag own-fin">Finance</span></td><td>Statutory deadline: within 2 working days of exit</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Employee file archived per data retention policy</td><td><span class="owner-tag own-hr">HR</span></td><td>Retain for minimum 5 years per statutory requirement</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Headcount dashboard and attrition tracker updated</td><td><span class="owner-tag own-hr">HR</span></td><td></td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Exit interview findings logged and shared with relevant leadership</td><td><span class="owner-tag own-hr">HR</span></td><td>Anonymised where appropriate</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Backfill requisition raised if replacement needed</td><td><span class="owner-tag own-hr">HR</span></td><td>Requires manager approval</td></tr>
+        <tr><td class="check-col"><div class="check-box" onclick="this.classList.toggle('done')"></div></td><td>Offboarding process closed — checklist signed off by HR</td><td><span class="owner-tag own-hr">HR</span></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Exit Interview -->
+  <div class="exit-section">
+    <div class="exit-title">Exit Interview Template</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div class="exit-q">
+        <label>What prompted your decision to leave?</label>
+        <textarea placeholder="Notes from discussion..."></textarea>
+      </div>
+      <div class="exit-q">
+        <label>What did you enjoy most about working here?</label>
+        <textarea placeholder="Notes from discussion..."></textarea>
+      </div>
+      <div class="exit-q">
+        <label>What could the company have done differently?</label>
+        <textarea placeholder="Notes from discussion..."></textarea>
+      </div>
+      <div class="exit-q">
+        <label>Would you recommend us as an employer? Why?</label>
+        <textarea placeholder="Notes from discussion..."></textarea>
+      </div>
+    </div>
+    <div class="exit-q" style="margin-top:4px;">
+      <label>Any additional feedback or suggestions for leadership?</label>
+      <textarea placeholder="Notes from discussion..." style="min-height:60px;"></textarea>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Shruti Vats · People Operations Portfolio · Template — anonymised for sharing</span>
+    <span>SOP-HR-002 · Version 1.0 · All data in this document is illustrative</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidate Onboarding Automation — Shruti Vats</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #12192C;
+    --mid: #2E4A7A;
+    --accent: #1B6CA8;
+    --soft: #EAF1FA;
+    --rule: #C8D8EC;
+    --green: #1A7A4A;
+    --green-soft: #E6F4ED;
+    --red: #A63228;
+    --red-soft: #FAE8E6;
+    --gold: #8B6914;
+    --gold-soft: #FDF3DC;
+    --white: #FFFFFF;
+    --bg: #F5F8FC;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 48px 32px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 48px;
+  }
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #5A6A82;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: #5A6A82;
+  }
+  .meta-pill strong { color: var(--ink); }
+
+  /* Flow */
+  .flow {
+    position: relative;
+  }
+
+  .step {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 0;
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .step:nth-child(1) { animation-delay: 0.1s; }
+  .step:nth-child(2) { animation-delay: 0.2s; }
+  .step:nth-child(3) { animation-delay: 0.3s; }
+  .step:nth-child(4) { animation-delay: 0.4s; }
+  .step:nth-child(5) { animation-delay: 0.5s; }
+  .step:nth-child(6) { animation-delay: 0.6s; }
+  .step:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Left column: number + connector line */
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+  }
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 1;
+    border: 2px solid;
+  }
+  .num-blue  { background: var(--soft); border-color: var(--accent); color: var(--accent); }
+  .num-green { background: var(--green-soft); border-color: var(--green); color: var(--green); }
+  .num-red   { background: var(--red-soft); border-color: var(--red); color: var(--red); }
+  .num-gold  { background: var(--gold-soft); border-color: var(--gold); color: var(--gold); }
+
+  .connector {
+    width: 2px;
+    flex: 1;
+    min-height: 32px;
+    background: var(--rule);
+    margin: 4px 0;
+  }
+  .connector-dashed {
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--rule) 0px,
+      var(--rule) 5px,
+      transparent 5px,
+      transparent 10px
+    );
+  }
+
+  /* Right column: card */
+  .step-card {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 8px;
+  }
+  .step-card.green-card { border-left: 4px solid var(--green); }
+  .step-card.red-card   { border-left: 4px solid var(--red); }
+  .step-card.gold-card  { border-left: 4px solid var(--gold); }
+  .step-card.blue-card  { border-left: 4px solid var(--accent); }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .tag-trigger { background: var(--soft); color: var(--accent); }
+  .tag-auto    { background: #EDE9FA; color: #5B3FA6; }
+  .tag-branch  { background: var(--gold-soft); color: var(--gold); }
+  .tag-yes     { background: var(--green-soft); color: var(--green); }
+  .tag-no      { background: var(--red-soft); color: var(--red); }
+  .tag-end     { background: #F0F0F0; color: #555; }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #5A6A82;
+    line-height: 1.6;
+  }
+  .card-tool {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #5A6A82;
+    font-weight: 500;
+  }
+  .tool-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Branch layout */
+  .branch-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex: 1;
+  }
+  .branch-card {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .branch-card.yes { border-top: 3px solid var(--green); }
+  .branch-card.no  { border-top: 3px solid var(--red); }
+
+  .branch-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* Before/After */
+  .impact-bar {
+    display: flex;
+    gap: 16px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+  .impact-card {
+    flex: 1;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--rule);
+  }
+  .impact-card.before { background: var(--red-soft); border-color: #E8C4C0; }
+  .impact-card.after  { background: var(--green-soft); border-color: #B8DEC8; }
+  .impact-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .impact-card.before .impact-label { color: var(--red); }
+  .impact-card.after  .impact-label { color: var(--green); }
+  .impact-stat {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .impact-card.before .impact-stat { color: var(--red); }
+  .impact-card.after  .impact-stat { color: var(--green); }
+  .impact-desc { font-size: 13px; color: #5A6A82; line-height: 1.5; }
+
+  /* Footer */
+  .footer-note {
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+    font-size: 12px;
+    color: #8A9AB2;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 24px 16px; }
+    h1 { font-size: 24px; }
+    .impact-bar { flex-direction: column; }
+    .branch-container { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="label">Portfolio Artifact · Workflow Design</div>
+    <h1>Candidate Onboarding<br>Automation Flow</h1>
+    <p class="subtitle">Built at Opt2Deal E-commerce Pvt. Ltd. using Zapier. Replaced fully manual follow-up for every new hire — triggered by form submission, self-running through document verification and candidate pipeline management.</p>
+    <div class="meta-row">
+      <div class="meta-pill"><strong>Tool:</strong> Zapier</div>
+      <div class="meta-pill"><strong>Context:</strong> Startup · First HR Hire</div>
+      <div class="meta-pill"><strong>Scope:</strong> 50+ hires automated</div>
+      <div class="meta-pill"><strong>Status:</strong> Production · 2022–2023</div>
+    </div>
+  </div>
+
+  <!-- Flow -->
+  <div class="flow">
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num num-blue">1</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card blue-card">
+        <span class="card-tag tag-trigger">Trigger</span>
+        <div class="card-title">Candidate Submits Onboarding Form</div>
+        <div class="card-desc">Candidate fills out the onboarding form — name, role, joining date, and contact details. This submission is the single trigger that starts the entire automated pipeline.</div>
+        <div class="card-tool"><span class="tool-dot"></span>Zapier · Form Integration (Google Forms / Typeform)</div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num num-blue">2</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card blue-card">
+        <span class="card-tag tag-auto">Automated</span>
+        <div class="card-title">Document Request Email Sent Instantly</div>
+        <div class="card-desc">On form submission, Zapier immediately triggers a personalised email listing all documents required for verification: ID proof, address proof, educational certificates, previous employment documents, and PAN/Aadhar.</div>
+        <div class="card-tool"><span class="tool-dot"></span>Zapier · Gmail / SMTP Action</div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num num-gold">3</div>
+        <div class="connector connector-dashed"></div>
+      </div>
+      <div class="step-card gold-card">
+        <span class="card-tag tag-branch">Decision Point</span>
+        <div class="card-title">Did the Candidate Submit Documents?</div>
+        <div class="card-desc">After a defined window (e.g. 48–72 hours), Zapier checks whether documents have been received. This branches the flow into two separate paths.</div>
+        <div class="card-tool"><span class="tool-dot"></span>Zapier · Filter / Delay Step</div>
+      </div>
+    </div>
+
+    <!-- Branch Step -->
+    <div class="step">
+      <div class="step-left" style="visibility:hidden; width:48px;"></div>
+      <div class="branch-container">
+
+        <!-- YES branch -->
+        <div class="branch-card yes">
+          <div class="card-tag tag-yes">✓ Yes — Documents Submitted</div>
+          <div style="height:10px;"></div>
+          <div class="card-title" style="font-size:14px;">Acknowledgement Email Sent</div>
+          <div class="card-desc">Candidate receives a confirmation email: documents received, verification in progress, team will revert within X working days.</div>
+          <div class="card-tool" style="margin-top:10px;"><span class="tool-dot" style="background:var(--green);"></span>Zapier · Gmail Action</div>
+        </div>
+
+        <!-- NO branch -->
+        <div class="branch-card no">
+          <div class="card-tag tag-no">✗ No — No Submission</div>
+          <div style="height:10px;"></div>
+          <div class="card-title" style="font-size:14px;">One Reminder Email Sent</div>
+          <div class="card-desc">Single automated reminder sent after the deadline. No manual chase needed. If documents are still not submitted after reminder window, candidature is automatically removed from pipeline.</div>
+          <div class="card-tool" style="margin-top:10px;"><span class="tool-dot" style="background:var(--red);"></span>Zapier · Delay + Gmail + Filter</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num num-green">5</div>
+        <div class="connector connector-dashed"></div>
+      </div>
+      <div class="step-card green-card">
+        <span class="card-tag tag-auto">Automated</span>
+        <div class="card-title">Team Notified for Manual Verification</div>
+        <div class="card-desc">Once documents are in, HR team is notified via email or Slack to begin manual verification. Automation hands off cleanly — no risk of candidates falling through the cracks.</div>
+        <div class="card-tool"><span class="tool-dot" style="background:var(--green);"></span>Zapier · Email / Slack Notification</div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num num-green">6</div>
+        <div class="connector"></div>
+      </div>
+      <div class="step-card green-card">
+        <span class="card-tag tag-yes">Complete</span>
+        <div class="card-title">Verification Outcome Communicated</div>
+        <div class="card-desc">After manual verification, HR sends final outcome email: approved (with joining instructions) or flagged (with follow-up needed). Pipeline record updated accordingly.</div>
+        <div class="card-tool"><span class="tool-dot" style="background:var(--green);"></span>Manual step — triggered by HR post-review</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Impact Bar -->
+  <div class="impact-bar">
+    <div class="impact-card before">
+      <div class="impact-label">Before Automation</div>
+      <div class="impact-stat">~45 min</div>
+      <div class="impact-desc">Per hire — manual email drafting, individual follow-up, tracking submissions across spreadsheet rows, chasing non-respondents by hand.</div>
+    </div>
+    <div class="impact-card after">
+      <div class="impact-label">After Automation</div>
+      <div class="impact-stat">&lt; 5 min</div>
+      <div class="impact-desc">Per hire — form submitted, pipeline runs itself. HR only steps in for actual verification. Zero candidates slip through without a follow-up.</div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <span>Shruti Vats · People Operations Portfolio</span>
+    <span>Built with Zapier · Opt2Deal E-commerce Pvt. Ltd. · 2022–2023</span>
+  </div>
+
+</div>
+</body>
+</html>
