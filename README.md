@@ -1,1 +1,0 @@
-# shruti-vats.github.io
